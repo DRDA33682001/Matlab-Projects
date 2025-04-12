@@ -29,7 +29,7 @@ M_{n1} = M_1 \sin(\theta_s)
 The **normal Mach number after the shock** is:
 
 \[
-M_{n2}^2 = \frac{1 + \frac{\gamma - 1}{2} M_{n1}^2}{\gamma M_{n1}^2 - \frac{\gamma - 1}{2}}
+Mn1 = M1 sin(θs)
 \]
 
 The **Mach number after the shock**:
@@ -136,7 +136,7 @@ Where:
 ---
 
 
----
+
 
 ## 📌 Conclusion
 
@@ -147,7 +147,6 @@ This project effectively implements a Taylor-Maccoll flow solver in MATLAB. It p
 ## 👤 Author Info
 
 **Dron Das Purkayastha**  
-_This project was developed as part of gas dynamics coursework and serves as a demonstration of numerical simulation and visualization using MATLAB._
 
 
 
