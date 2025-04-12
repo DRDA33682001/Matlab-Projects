@@ -21,16 +21,6 @@ TaylorMaccoll/ ├── code/ │ ├── taylor_maccoll_analysis.m # Main so
 
 ---
 
-## 📊 Sample Output
-
-<p align="center">
-  <img src="plots/flow_distribution_plots.png" width="75%">
-</p>
-
-This combined figure shows how key flow variables vary with angle \(\psi\), based on the exported data from `flow_data_dpsi_0_2.csv`.
-
----
-
 ## ⚙️ How to Run
 
 1. Open `taylor_maccoll_analysis.m` in MATLAB.
