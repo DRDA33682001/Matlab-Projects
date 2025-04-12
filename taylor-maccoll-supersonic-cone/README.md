@@ -12,12 +12,6 @@ This MATLAB project solves the Taylor-Maccoll equation to model compressible sup
 - Export flow field data to a CSV file.
 - Generate insightful plots from both computed data and CSV.
 
----
-
-## 📁 Project Structure
-
-TaylorMaccoll/ ├── code/ │ ├── taylor_maccoll_analysis.m # Main solver with RK4 integration │ └── plot_taylor_maccoll_results.m # Plots flow properties from CSV ├── data/ │ └── flow_data_dpsi_0_2.csv # Exported flow variable data ├── plots/ │ ├── assignment5plot.png # Mach number vs ψ │ ├── assignment5plot2.png # Pressure ratio vs ψ │ └── flow_distribution_plots.png # Multiple flow quantities vs ψ ├── report/ │ ├── report.tex # LaTeX source of final report │ └── report.pdf # Compiled version of the report └── README.md # Project summary and guide
-
 
 ---
 
@@ -31,7 +25,7 @@ TaylorMaccoll/ ├── code/ │ ├── taylor_maccoll_analysis.m # Main so
 
 ## 📄 Report
 
-For full background, equations, numerical method, and analysis:
+For full background, equations, numerical method, and analysis: read the Report 
 
 ---
 
