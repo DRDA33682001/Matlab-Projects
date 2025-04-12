@@ -1,0 +1,10 @@
+# MATLAB .gitignore
+*.asv
+*.fig
+*.mdl.autosave
+*.slxc
+*.slx.autosave
+*.mex*
+*.log
+*.bak
+*.tmp
