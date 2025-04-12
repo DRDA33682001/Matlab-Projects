@@ -1,152 +1,164 @@
-# 📘 Report: Supersonic Flow Over a Cone Using the Taylor-Maccoll Equation
+# Supersonic Flow Over a Cone Using Taylor-Maccoll Equation
 
 **Author:** Dron Das Purkayastha  
-**Project Type:** MATLAB-based Simulation and Visualization  
-**Domain:** Gas Dynamics / Compressible Flow  
+**Course:** Gas Dynamics (MECH 314)  
+**Tool:** MATLAB
 
 ---
 
-## 🧠 Objective
+## 📌 Objective
 
-This project implements a numerical solution for **supersonic inviscid compressible flow over a sharp cone** using the **Taylor-Maccoll equation**. The goal is to compute the flow field between a conical shock and the cone surface for a given freestream Mach number and shock angle. It aims to extract key flow quantities such as Mach number, pressure coefficient, cone angle, and thermodynamic state ratios. The output is validated through visual plots and convergence checks.
-
----
-
-## 🧮 Mathematical Background
-
-### 📏 Oblique Shock Relations
-
-Given:
-- \( M_1 \): Freestream Mach number
-- \( \theta_s \): Shock wave angle
-
-The **normal Mach number** before the shock is:
-
-\[
-M_{n1} = M_1 \sin(\theta_s)
-\]
-
-The **normal Mach number after the shock** is:
-
-\[
-Mn1 = M1 sin(θs)
-\]
-
-The **Mach number after the shock**:
-
-\[
-M_2 = \frac{M_{n2}}{\sin(\theta_s)}
-\]
-
-The **pressure and stagnation pressure ratios**:
-
-\[
-\frac{p_2}{p_1} = 1 + \frac{2 \gamma}{\gamma + 1} (M_{n1}^2 - 1)
-\]
-
-\[
-\frac{p_{02}}{p_{01}} = \left( \frac{1 + \frac{\gamma - 1}{2} M_1^2}{1 + \frac{\gamma - 1}{2} M_2^2} \right)^{\frac{\gamma}{\gamma - 1}} \left( \frac{p_2}{p_1} \right)^{-1}
-\]
+This project numerically solves the compressible, axisymmetric, inviscid supersonic flow over a cone using the Taylor-Maccoll equation. The simulation determines the flow field properties between an oblique shock and the cone surface for various angular step sizes. Key surface parameters such as cone angle, surface Mach number, and pressure coefficient are extracted and compared across grid resolutions. The results are validated by visualizing the flow variable distributions and comparing to theoretical trends.
 
 ---
 
-### 📘 Taylor-Maccoll Equation
+## 🧮 Governing Equations
 
-Describes axisymmetric supersonic flow over a cone. The governing ODEs in terms of radial and angular velocity components:
+### 1. Oblique Shock Relations
 
-\[
-\frac{dV_r}{d\psi} = V_\psi
-\]
+When a supersonic flow meets a cone, an oblique shock forms. The normal Mach number before the shock is:
 
-\[
-\frac{dV_\psi}{d\psi} = -\left( \frac{V_r^2 - V_\psi^2}{V_r} + \frac{\gamma - 1}{2}(V_r^2 + V_\psi^2 - 1)\frac{V_\psi}{V_r} \right)
-\]
+- Mn1 = M1 * sin(theta_s)
+
+After the shock, the normal Mach number is reduced and given by:
+
+- Mn2² = [1 + ((γ - 1)/2) * Mn1²] / [γ * Mn1² - ((γ - 1)/2)]
+
+The downstream Mach number after the shock is:
+
+- M2 = Mn2 / sin(theta_s)
+
+Additional relations:
+
+- Pressure ratio across the shock:  
+  p2/p1 = 1 + (2 * γ / (γ + 1)) * (Mn1² - 1)
+
+- Stagnation pressure ratio:  
+  p02/p01 = [(1 + ((γ - 1)/2) * M1²) / (1 + ((γ - 1)/2) * M2²)]^(γ / (γ - 1)) * (p2/p1)^(-1)
+
+---
+
+### 2. Taylor-Maccoll Flow Equations
+
+The flow between the shock and the cone surface is described using the following coupled ODEs:
+
+- d(Vr)/d(psi) = Vpsi
+
+- d(Vpsi)/d(psi) = - [ (Vr² - Vpsi²) / Vr + ((γ - 1)/2) * (Vr² + Vpsi² - 1) * (Vpsi / Vr) ]
 
 Where:
-- \( V_r \): Radial velocity component
-- \( V_\psi \): Angular velocity component
-- \( \psi \): Angle from axis (shock to cone surface)
+- Vr = radial velocity component  
+- Vpsi = angular velocity component  
+- psi = angle from the cone axis to shock surface
+
+These are solved using a 4th-order Runge-Kutta (RK4) numerical integration technique.
 
 ---
 
-## 💻 Code Overview
+### 3. Thermodynamic State Equations
 
-### 1. `taylor_maccoll_analysis.m`
-- Computes shock properties
-- Integrates Taylor-Maccoll ODEs via 4th-order Runge-Kutta
-- Exports CSV for ∆ψ = 0.2° case
-- Performs convergence study over ∆ψ = 0.1°, 0.2°, 0.4°
-- Outputs plots of Mach number and pressure ratio
+Derived quantities include:
 
-### 2. `flow_data_dpsi_0_2.csv`
-- Angularly distributed flow field data
-- Columns: \( \psi \), \( V_r \), \( V_\psi \), \( M \), \( \frac{p}{p_1} \), \( \frac{T}{T_1} \), \( \frac{\rho}{\rho_1} \)
-
-### 3. `visualize_flow_csv.m`
-- Reads the CSV data
-- Generates a 2×2 grid of plots:
-  - \( V_r \), \( V_\psi \), Mach number
-  - Pressure, temperature, density ratios
+- Mach number: M = sqrt(Vr² + Vpsi²)
+- Static pressure ratio: p/p1 = f(M)
+- Static temperature ratio: T/T1 = f(M)
+- Density ratio: rho/rho1 = (p/p1) / (T/T1)
 
 ---
 
-## 📊 Visual Results
+## 🧪 Methodology
 
-### Mach Number Distribution
-<img src="machnumber-plot.png" width="600">
-
-- Demonstrates deceleration of flow as it approaches the cone.
-- Smooth trend confirms numerical stability.
-
----
-
-### Static Pressure Ratio Distribution
-<img src="staticpressure-plot.png" width="600">
-
-- Pressure increases due to compression behind the shock.
-- Useful to extract surface values.
+1. For each chosen step size (0.1°, 0.2°, 0.4°), the shock relations are computed.
+2. Taylor-Maccoll equations are integrated from the shock wave toward the cone using RK4.
+3. At each step, flow variables are calculated and stored.
+4. Final surface values are extracted:
+   - Cone semi-angle (delta_c)
+   - Surface Mach number (Mc)
+   - Surface pressure coefficient (Cp)
+5. A flow data CSV is exported for Δψ = 0.2°
+6. All flow variables are plotted for grid convergence study and flow distribution analysis.
 
 ---
 
-### Full Variable Flow Field (CSV Output)
-<img src="flow_distribution_plots.png" width="600">
+## 📁 Files and Their Roles
 
-- Shows full behavior of flow variables across the domain.
-- Confirms physical accuracy of model.
-
----
-
-## 🧠 Analysis and Observations
-
-- The **cone surface Mach number** and **pressure coefficient** align with theoretical expectations.
-- **Grid convergence** confirms robustness of the numerical integration.
-- Output data is suitable for post-processing, visualization, and engineering analysis.
+- `taylor_maccoll_analysis.m`: Main script for computation and plotting
+- `visualize_flow_csv.m`: Reads the exported CSV and visualizes individual flow variables
+- `flow_data_dpsi_0_2.csv`: Contains all flow field data for Δψ = 0.2°
+- `machnumber-plot.png`: Mach number variation with ψ for 3 step sizes
+- `staticpressure-plot.png`: Static pressure ratio variation with ψ
+- `flow_distribution_plots.png`: Subplots for Vr, Vpsi, Mach, p/p1, T/T1, and rho/rho1
 
 ---
 
-## ✅ How to Run the Project
+## 📊 Results and Analysis
 
-1. Open `taylor_maccoll_analysis.m` in MATLAB and run.
-2. It will generate:
-   - Console outputs
-   - `flow_data_dpsi_0_2.csv`
-   - Convergence plots
-3. Run `visualize_flow_csv.m` to view flow variable plots from the CSV.
+### 🔹 Cone Surface Properties
 
----
+| Step Size (Δψ) | Cone Angle (deg) | Mach at Cone | Pressure Coeff (Cp) |
+|----------------|------------------|---------------|----------------------|
+| 0.1°           | -0.00000         | 0.57905       | 1.57380              |
+| 0.2°           | -0.00000         | 0.57905       | 1.57380              |
+| 0.4°           | -0.20000         | 0.57670       | 1.57741              |
 
-
-
-
-## 📌 Conclusion
-
-This project effectively implements a Taylor-Maccoll flow solver in MATLAB. It provides insights into axisymmetric supersonic cone flow and generates accurate outputs useful for validation, visualization, and further academic study. The exported CSV and clean plots make the results reproducible and explainable.
+The consistent results for smaller step sizes confirm good numerical convergence.
 
 ---
 
-## 👤 Author Info
+### 🔹 Grid Convergence Plots
 
-**Dron Das Purkayastha**  
+#### Mach Number vs ψ  
+**File:** `machnumber-plot.png`
 
+- Shows how flow Mach number decreases as it moves from shock to cone.
+- The curves overlap well for Δψ = 0.1° and 0.2°, but deviate slightly for Δψ = 0.4°, validating smaller step sizes for accuracy.
 
+#### Static Pressure Ratio vs ψ  
+**File:** `staticpressure-plot.png`
 
+- Shows pressure build-up through the compression layer.
+- Smooth gradient confirms ideal flow behavior and solver accuracy.
+
+---
+
+### 🔹 Flow Variable Distribution
+
+#### File: `flow_distribution_plots.png`
+
+This plot provides a comprehensive view of:
+
+- Radial velocity (Vr)
+- Angular velocity (Vpsi)
+- Mach number
+- Pressure ratio
+- Temperature ratio
+- Density ratio
+
+Each subplot shows how these variables change from shock to cone surface (ψ = 45° → 0°). These trends match expected physics and validate the solver.
+
+---
+
+## 📈 Inference
+
+- The Taylor-Maccoll solver accurately models compressible cone flow.
+- RK4 integration and grid convergence ensures robustness of results.
+- Thermodynamic variables follow expected profiles for an inviscid, supersonic flow.
+- CSV export enables downstream analysis and plotting flexibility.
+
+---
+
+## ▶ How to Run
+
+1. Open MATLAB
+2. Run `taylor_maccoll_analysis.m`
+3. View console output and plots
+4. Run `visualize_flow_csv.m` for detailed subplot visualization
+5. All data and plots will be saved in your working directory
+
+---
+
+## 🧠 Final Thoughts
+
+This project serves as a robust MATLAB implementation of Taylor-Maccoll theory, suitable for learning compressible flow numerics and visualization. The modular design also makes it extendable to multi-shock systems or comparative studies using real gas effects.
+
+---
