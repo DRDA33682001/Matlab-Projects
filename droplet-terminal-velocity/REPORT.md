@@ -1,4 +1,4 @@
-# 💧 Droplet Terminal Velocity Simulation
+#  Droplet Terminal Velocity Simulation
 
 ## 📌 Objective
 
