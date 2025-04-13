@@ -36,6 +36,13 @@ The solver follows these steps:
 
 ---
 
+## 📈 Simulation Flowchart
+
+The figure below presents the full computational workflow for simulating supersonic flow over a cone using the Taylor–Maccoll equation. This project integrates classic compressible flow theory with modern numerical methods to capture high-speed conical shock interactions.
+
+![Simulation Flowchart](./taylor-maccoll-supersonic-cone.png)
+---
+
 ## 📊 Results and Analysis
 
 ### 🔹 Cone Surface Output
