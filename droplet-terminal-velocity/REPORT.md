@@ -6,6 +6,41 @@ The goal of this project is to simulate the motion of a spherical water droplet 
 
 ---
 
+
+## ⚗️ Governing Equations
+
+The motion of the droplet is governed by Newton’s Second Law:
+
+    Net force = mass × acceleration
+
+For a falling droplet in air:
+
+    F_net = F_gravity - F_drag
+
+Where:
+
+- **F_gravity** = (rho_water - rho_air) × Volume × g  
+  This accounts for buoyancy by subtracting the air density from the droplet’s density.
+
+- **F_drag** = 0.5 × C_d × rho_air × A × v^2  
+  The drag force depends on velocity, cross-sectional area (A), air density, and the drag coefficient (C_d).
+
+The **Reynolds number (Re)** determines the drag coefficient:
+
+    Re = (rho_air × v × D) / mu_air
+
+And the **drag coefficient (C_d)** is modeled using:
+
+- For Re < 1000:
+  
+      C_d = 24 / Re × (1 + 0.15 × Re^0.687)     (Schiller–Naumann correlation)
+
+- For Re ≥ 1000:
+  
+      C_d = 0.44    (Turbulent regime assumption)
+
+---
+
 ## 🧠 Physics Background
 
 A droplet falling through a fluid experiences:
