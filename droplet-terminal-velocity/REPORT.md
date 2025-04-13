@@ -53,6 +53,11 @@ As the droplet accelerates from rest, drag increases until it balances the net g
 The drag coefficient depends on the Reynolds number (Re), so we apply the Schiller-Naumann model for Re < 1000 and use Cd = 0.44 for high Re regimes.
 
 ---
+## 📈 Simulation Flowchart
+
+Below is a logical overview of the simulation process, including decision points for Reynolds number and convergence checking:
+
+![Simulation Flowchart](./droplet_terminal_velocity_nd.png)
 
 ## ⚙️ Code Implementation
 
